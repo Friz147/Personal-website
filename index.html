@@ -1,0 +1,340 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>(1101) — Frida</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;1,9..40,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="Style.css">
+  <script src="Behaviour.js" defer></script>
+</head>
+<body>
+
+  <!-- ── SCROLL PROGRESS ────────────────────────────────── -->
+  <div id="scroll-progress"></div>
+
+  <!-- ── CURSOR ──────────────────────────────────────────── -->
+  <div id="cur-dot"></div>
+  <div id="cur-ring"></div>
+
+  <!-- ── PROJECT MODAL ─────────────────────────────────────
+       Lives outside the flow so it overlays everything       -->
+  <div id="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div id="modal-backdrop"></div>
+    <div class="modal-inner">
+      <button class="modal-close-btn" id="modal-close-btn" aria-label="Close">✕</button>
+      <div class="modal-image-wrap">
+        <img id="modal-img" src="" alt="" />
+      </div>
+      <div class="modal-body">
+        <span class="modal-tag" id="modal-tag"></span>
+        <h2 class="modal-title" id="modal-title"></h2>
+        <p  class="modal-desc"  id="modal-desc"></p>
+        <div class="modal-footer">
+          <a href="#projects" class="btn btn-lime" id="modal-cta" onclick="closeModal()">
+            View Full Project <span class="btn-icon">→</span>
+          </a>
+          <span class="modal-index" id="modal-index"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── NAV ────────────────────────────────────────────── -->
+  <nav>
+    <span class="nav-logo">(1101)</span>
+    <ul class="nav-links">
+      <li><a href="#projects">Portfolio</a></li>
+      <li><a href="#about">About Me</a></li>
+      <li><a href="#contact">Contacts</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── HERO ───────────────────────────────────────────── -->
+  <section id="hero">
+
+    <!-- Ambient glow orbs (mouse-reactive) -->
+    <div class="hero-orb hero-orb-1" id="orb1"></div>
+    <div class="hero-orb hero-orb-2" id="orb2"></div>
+    <div class="hero-orb hero-orb-3" id="orb3"></div>
+
+    <div class="wrap">
+      <div class="hero-top">
+
+        <h1 class="hero-title parallax-layer" data-speed="0.04">
+          Hi, I'm Frida<br>A IXD Design<br>Student
+        </h1>
+
+        <div class="hero-collage parallax-layer" data-speed="0.07">
+          <div class="carousel-viewport">
+
+            <div class="carousel-slide cs-1 active" data-index="0">
+              <img src="images/artforall.png" alt="Art For All">
+              <div class="carousel-slide-label">
+                <span class="carousel-slide-tag">Art For All</span>
+                <span class="carousel-slide-name">Erasmus+ project</span>
+              </div>
+            </div>
+
+            <div class="carousel-slide cs-2" data-index="1">
+              <img src="images/designtales.png" alt="Design Tales">
+              <div class="carousel-slide-label">
+                <span class="carousel-slide-tag">Design Tales</span>
+                <span class="carousel-slide-name">Card game</span>
+              </div>
+            </div>
+
+            <div class="carousel-slide cs-3" data-index="2">
+              <img src="images/uselessbox.png" alt="Useless Box">
+              <div class="carousel-slide-label">
+                <span class="carousel-slide-tag">Useless Box</span>
+                <span class="carousel-slide-name">What is useful?</span>
+              </div>
+            </div>
+
+            <div class="carousel-slide cs-4" data-index="3">
+              <img src="images/VVr.png" alt="Interactive VR">
+              <div class="carousel-slide-label">
+                <span class="carousel-slide-tag">Interactive VR</span>
+                <span class="carousel-slide-name">VR Environments</span>
+              </div>
+            </div>
+
+            <div class="carousel-slide cs-5" data-index="4">
+              <img src="images/micro c.jpeg" alt="Micro-instrument">
+              <div class="carousel-slide-label">
+                <span class="carousel-slide-tag">Micro-instrument</span>
+                <span class="carousel-slide-name">Microbit Project</span>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="carousel-dots" id="carousel-dots">
+            <div class="carousel-dot active" data-dot="0"></div>
+            <div class="carousel-dot" data-dot="1"></div>
+            <div class="carousel-dot" data-dot="2"></div>
+            <div class="carousel-dot" data-dot="3"></div>
+            <div class="carousel-dot" data-dot="4"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="hero-meta">
+        <div>
+          <p class="meta-label">Motivation:<br><span style="color:rgba(240,237,230,.28)">(Currently)</span></p>
+          <p class="meta-text">I would like to share all my projects here, to get a voice in the sea of today's information, this is my adobe.</p>
+          <div style="display:flex; gap:.65rem; flex-wrap:wrap;">
+            <a href="#about"    class="btn btn-lime">About Me <span class="btn-icon">✦</span></a>
+            <a href="#projects" class="btn btn-purple">View Projects <span class="btn-icon">→</span></a>
+          </div>
+        </div>
+
+        <div>
+          <div class="ach-header">
+            <span class="meta-label">Recent<br>Achievements:</span>
+            <span class="meta-label ach-label-dim">(Currently)</span>
+          </div>
+          <div class="ach-row reveal">
+            <span class="ach-num">01</span>
+            <span class="ach-name">University</span>
+            <span class="ach-tag">Scholarship ↗</span>
+          </div>
+          <div class="ach-row reveal d1">
+            <span class="ach-num">02</span>
+            <span class="ach-name">Personal Projects</span>
+            <span class="ach-tag">Design Tales,<br>Gamification,<br>Education ↗</span>
+          </div>
+          <div class="ach-row reveal d2">
+            <span class="ach-num">03</span>
+            <span class="ach-name">Competitions</span>
+            <span class="ach-tag">TEF Ignition ↗</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MARQUEE 1 · LIME ───────────────────────────────── -->
+  <div class="marquee-band lime" aria-hidden="true" data-parallax-x="-0.04">
+    <div class="marquee-track fwd">
+      <span class="marquee-item">.-DESIGN.- &ensp; PEER-TO-PEER TUTORING.- &ensp; GRAPHIC.- &ensp; ANIMATIONS.- &ensp; BRANDING.- &ensp; ASSISTANT AT THE ELECTRONICS LAB.- &ensp;</span>
+      <span class="marquee-item">.-DESIGN.- &ensp; PEER-TO-PEER TUTORING.- &ensp; GRAPHIC.- &ensp; ANIMATIONS.- &ensp; BRANDING.- &ensp; ASSISTANT AT THE ELECTRONICS LAB.- &ensp;</span>
+      <span class="marquee-item">.-DESIGN.- &ensp; PEER-TO-PEER TUTORING.- &ensp; GRAPHIC.- &ensp; ANIMATIONS.- &ensp; BRANDING.- &ensp; ASSISTANT AT THE ELECTRONICS LAB.- &ensp;</span>
+      <span class="marquee-item">.-DESIGN.- &ensp; PEER-TO-PEER TUTORING.- &ensp; GRAPHIC.- &ensp; ANIMATIONS.- &ensp; BRANDING.- &ensp; ASSISTANT AT THE ELECTRONICS LAB.- &ensp;</span>
+    </div>
+  </div>
+
+  <!-- ── MARQUEE 2 · PURPLE ─────────────────────────────── -->
+  <div class="marquee-band purple" aria-hidden="true" data-parallax-x="0.04">
+    <div class="marquee-track rev">
+      <span class="marquee-item">.-DESIGN.- &ensp; PEER-TO-PEER TUTORING.- &ensp; GRAPHIC.- &ensp; ANIMATIONS.- &ensp; BRANDING.- &ensp; ASSISTANT AT THE ELECTRONICS LAB.-&ensp;</span>
+      <span class="marquee-item">.-DESIGN.- &ensp; PEER-TO-PEER TUTORING.- &ensp; GRAPHIC.- &ensp; ANIMATIONS.- &ensp; BRANDING.- &ensp; ASSISTANT AT THE ELECTRONICS LAB.- &ensp;</span>
+      <span class="marquee-item">.-DESIGN.- &ensp; PEER-TO-PEER TUTORING.- &ensp; GRAPHIC.- &ensp; ANIMATIONS.- &ensp; BRANDING.- &ensp; ASSISTANT AT THE ELECTRONICS LAB.- &ensp;</span>
+      <span class="marquee-item">.-DESIGN.- &ensp; PEER-TO-PEER TUTORING.- &ensp; GRAPHIC.- &ensp; ANIMATIONS.- &ensp; BRANDING.- &ensp; ASSISTANT AT THE ELECTRONICS LAB.- &ensp;</span>
+    </div>
+  </div>
+
+  <!-- ── ABOUT ──────────────────────────────────────────── -->
+  <section id="about">
+    <div class="about-grid">
+      
+      <div class="about-circle-col">
+        <div class="circle-wrap reveal parallax-layer" data-speed="0.05">
+          <svg viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <path id="cp" d="M130,130 m-98,0 a98,98 0 1,1 196,0 a98,98 0 1,1 -196,0"/>
+            </defs>
+            <text
+              font-family="'Unbounded', sans-serif"
+              font-size="15"
+              font-weight="700"
+              fill="#c084fc"
+              letter-spacing="3.2">
+              <textPath href="#cp">GOOD DESIGN IS AS LITTLE DESIGN AS POSSIBLE.&nbsp;&nbsp;</textPath>
+            </text>
+          </svg>
+          <div class="circle-star">✦</div>
+        </div>
+      </div>
+
+      <div class="about-facts-col">
+        <p class="about-fact reveal d1">Looking for cooperations</p>
+        <p class="about-fact reveal d2">Always up to learn new things</p>
+        <p class="about-fact reveal d3">My skills vary from design to development</p>
+        <p class="about-fact reveal d4">Interaction design student, second year at Polimi</p>
+        <p class="about-fact reveal d5">Plan to participate to the TEF Ignition</p>
+        <p class="about-fact reveal d6">Collecting pieces to build a drone</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROJECTS ───────────────────────────────────────── -->
+  <section id="projects">
+    <div class="wrap">
+
+      <div class="reveal" style="margin-bottom:2.5rem;">
+        <h2 class="section-title">Always Looking<br>Forward</h2>
+        <p class="section-sub">Designing solutions for a better tomorrow</p>
+        <a href="#" class="btn btn-ghost">View Projects <span class="btn-icon">✦</span></a>
+      </div>
+
+      <div class="proj-row-top">
+        <div class="proj-card pc1 reveal" data-project="art-for-all">
+          <img src="images/artforall.png" alt="Art For All — an inclusive approach to art">
+          <div class="proj-card-inner">
+            <div class="card-content">
+              <span class="proj-tag">Art For All</span>
+              <span class="proj-label">An inclusive approach to art; Erasmus+ project</span>
+            </div>
+          </div>
+        </div>
+        <div class="proj-card pc2 reveal d1" data-project="design-tales">
+          <img src="images/designtales.png" alt="Design Tales — learn design history through play">
+          <div class="proj-card-inner">
+            <div class="card-content">
+              <span class="proj-tag">Design Tales</span>
+              <span class="proj-label">A fun way to learn about design history; gamification</span>
+            </div>
+          </div>
+        </div>
+        <div class="proj-card pc3 reveal d2" data-project="useless-box">
+          <img src="images/uselessbox.png" alt="Useless Box — arduino project on usefulness">
+          <div class="proj-card-inner">
+            <div class="card-content">
+              <span class="proj-tag">Useless Box</span>
+              <span class="proj-label">An arduino-based project that challenges the concept of usefulness</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-row-bottom">
+        <div class="proj-card circle pc4 reveal" data-project="uomo-in-blue">
+          <img src="images/l'uomoinblue.jpeg" alt="L'uomo in blue — portrait">
+          <div class="proj-card-inner">
+            <div class="card-content" style="text-align:center">
+              <span class="proj-tag">L'uomo in blue</span>
+              <span class="proj-label">Portrait</span>
+            </div>
+          </div>
+        </div>
+        <div class="proj-bottom-right">
+          <div class="proj-card pc5 reveal d1" data-project="interactive-vr">
+            <img src="images/VVr.png" alt="Interactive VR for ASPOC students">
+            <div class="proj-card-inner">
+              <div class="card-content">
+                <span class="proj-tag">Interactive VR</span>
+                <span class="proj-label">A project made for ASPOC students to improve their cognitive skills</span>
+              </div>
+            </div>
+          </div>
+          <div class="proj-card pc6 reveal d2" data-project="micro-instrument">
+            <img src="images/micro c.jpeg" alt="Micro-instrument — Microbit project">
+            <div class="proj-card-inner">
+              <div class="card-content">
+                <span class="proj-tag">Micro-instrument</span>
+                <span class="proj-label">A Microbit-based project that allows users to play music</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── FOOTER / CONTACT ───────────────────────────────── -->
+  <footer id="contact">
+    <div class="wrap">
+
+      <div class="footer-cta reveal">
+        <div class="footer-cta-text">
+          <h2>
+            How About<br>
+            We Do A Thing<br>
+            Or Two,<a href="mailto:fridatutone@gmail.com" class="btn btn-lime inline-btn">
+            Get In Touch <span class="btn-icon">✦</span>
+            </a><br>
+            Together
+          </h2>
+        </div>
+        <div class="footer-cta-image">
+          <img src="images/XieLian.jpg" alt="">
+        </div>
+      </div>
+
+      <div class="footer-cols reveal">
+        <div>
+          <p class="footer-col-title">Sitemap</p>
+          <ul class="footer-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About Me</a></li>
+            <li><a href="#projects">Works</a></li>
+            <li><a href="#contact">Contacts</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer-col-title">Connect</p>
+          <ul class="footer-links">
+            <li><a href="#" target="_blank" rel="noopener">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-credit">
+        <span>Privacy ↗</span>
+        <span>(1101)</span>
+      </div>
+
+    </div>
+  </footer>
+</body>
+</html>
+
+
+
